@@ -1,60 +1,60 @@
-# `XXXX`项目
+环境为WSL2-Ubuntu22.04
 
-## 项目简介
-这里是项目简介
+## 从源码安装
+sudo apt install g++ cmake libssl-dev
 
-## 目录结构说明 
-- documents -- 项目开发相关文档（如：项目需求文档、设计文档等等）  
-- projects  -- 项目源码（比如：前端项目、后端项目等等）
+git clone -b master https://github.com/pocoproject/poco.git
 
-## 软件架构
-### 后端技术
+cd poco
 
-|技术|说明|版本|备注|
-|----|----|----|----|
-|Spring|容器|5.2.6|https://spring.io/|
-|SpringWebMVC|mvc框架|5.2.6|https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html|
-|Mybatis|ORM框架|3.???|http://www.mybatis.org/mybatis-3/zh/index.html|
-|MyBatisGenerator|数据层代码生成|???|http://www.mybatis.org/generator/index.html|
-|PageHelper|MyBatis物理分页插件|???|http://git.oschina.net/free/Mybatis_PageHelper|
-|Druid|数据库连接池|???|https://github.com/alibaba/druid|
-|Lombok|简化对象封装工具|???|https://github.com/rzwitserloot/lombok|
+mkdir cmake-build
+cd cmake-build
+cmake ..
+make -j4
+sudo make install
 
-### 前端技术
 
-|技术|说明|版本|备注|
-|----|----|----|----|
-|Vue|前端框架|???|https://vuejs.org/|
-|Vue-router|路由框架|???|https://router.vuejs.org/|
-|Vuex|全局状态管理框架|???|https://vuex.vuejs.org/|
-|Axios|前端HTTP框架|???|https://github.com/axios/axios|
-|Bootstrap|前端UI框架|4|https://bootstrap-vue.org/|
-|Element|前端UI框架|???|https://element.eleme.io|
+g++ test.cpp -o test -lPocoNet
 
-## 环境搭建
-### 开发工具
+## 包管理器安装
+sudo apt update
 
-|工具|说明|版本|备注|
-|----|----|----|----|
-|IDEA|开发IDE|???|https://www.jetbrains.com/idea/download|
-|Navicat|数据库连接工具|???|http://www.formysql.com/xiazai.html|
-|PowerDesigner|数据库设计工具|???|http://powerdesigner.de/|
-|Axure|原型设计工具|???|https://www.axure.com/|
-|MindMaster|思维导图设计工具|???|http://www.edrawsoft.cn/mindmaster|
-|Visio|流程图绘制工具|???||
-|Postman|API接口调试工具|???|https://www.postman.com/|
+sudo apt install libpoco-dev
 
-### 开发环境
+## 编写测试程序
+   ```cpp
+   #include <iostream>
+   #include <Poco/Net/HTTPRequest.h>
+   
+   int main()
+   {
+       Poco::Net::HTTPRequest request;
+       std::cout << "Poco library installation successful!" << std::endl;
+       return 0;
+   }
+   ```
+## 使用命令行编译链接，运行
+g++ test.cpp -o test -lPocoNet
 
-|工具|版本|备注|
-|----|----|----|
-|Windows|10|操作系统|
-|JDK|1.8|https://www.injdk.cn/|
-|MySQL|5.7|https://www.mysql.com/cn/|
-|Tomcat|8.5||
-|NodeJS|12.16.3|https://nodejs.org/zh-cn/|
+./test
+   
 
-### 安装教程
-后续补充
+## 使用cmake编译链接
+若您没有安装cmake:
+sudo apt install cmake
 
-## 开发进度
+在刚才编写的文件的同级文件夹下，创建一个名为 `CMakeLists.txt` 的文件，其内容如下：
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(PocoExample)
+find_package(Poco REQUIRED COMPONENTS Foundation Net)
+add_executable(example main.cpp)
+target_link_libraries(example Poco::Foundation Poco::Net)
+```
+
+创建`build`文件夹，进入`build`文件夹，生成 Makefile，编译，运行
+mkdir build
+cd build
+cmake ..
+make
+./example
