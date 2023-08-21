@@ -1,0 +1,39 @@
+# CMake
+out/
+build/
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Exclude conan-generated files
+conan.lock
+conanbuildinfo**
+conaninfo.txt
+graph_info.json
+
+# Visual Studio
+.vs/
+x64/
+x86/
+bin/
+obj/
+*.suo
+!*.sln
+!*.vcxproj
+*.user
+
+# Visual Studio Code
+.vscode/*
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/*.code-snippets
